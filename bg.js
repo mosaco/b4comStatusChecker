@@ -2,22 +2,24 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// TODO(wittman): Convert this extension to event pages once they work with
-// the notifications API.  Currently it's not possible to restore the
-// Notification object when event pages get reloaded.  See
-// http://crbug.com/165276.
-
-var statusURL = "http://www.bengo4.com";
-var pollFrequencyInMs = 300000;
-
-function getUseNotifications(callback) {
-  chrome.storage.sync.get(
-    {prefs: {use_notifications: false}},
-    function(storage) { callback(storage.prefs.use_notifications); });
-}
+var statusURL = "http://www.bengo4.com",
+    badgeList = { law: 0, per: 3 }, // bengo4.comのTOPページのステータスの並べ順
+    badgeType,// = chrome.storage.sync.get('badge_type', function(){}),
+    pollFrequencyInMs = 30000;
 
 function updateStatus(status) {
-  var _num = status.querySelectorAll(".countNumber")[3].innerText;
+  chrome.storage.sync.get(
+    'badge_type',
+    function(storage){
+      var _value = "";
+      if(storage.badge_type === null || storage.badge_type === undefined){
+        badgeType = "law";
+      } else {
+        badgeType = storage.badge_type;
+      }
+  })
+  var _badge = badgeList[badgeType],
+  var _num = status.querySelectorAll(".countNumber")[_badge].innerText;
   _num = _num.split(',').join("");
   chrome.browserAction.setBadgeBackgroundColor({color: '#fe6000'});
   chrome.browserAction.setBadgeText({text : _num});
@@ -37,8 +39,8 @@ function requestURL(url, callback, opt_responseType) {
       if (xhr.status == 200) {
         callback(xhr.responseType == "document" ? xhr.responseXML : xhr.responseText);
       } else {
-        chrome.browserAction.setBadgeText({text:"?"});
-        chrome.browserAction.setBadgeBackgroundColor({color:[0,0,255,255]});
+        chrome.browserAction.setBadgeText({text:" -- "});
+        chrome.browserAction.setBadgeBackgroundColor({color:'#fe6000'});
       }
     }
   };

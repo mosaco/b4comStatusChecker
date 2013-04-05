@@ -3,22 +3,26 @@
 // found in the LICENSE file.
 
 var _radio;
-
 function save() {
-  //chrome.storage.sync.set({prefs: {use_notifications: _radio.checked}});
+  chrome.storage.sync.set({badge_type: this.getAttribute("value")});
 }
-
-// Initialize the checkbox checked state from the saved preference.
 function main() {
-  _radio = document.querySelector('input[type="radio"][name="notification"][checked="checked"]');
-  console.log(_radio);
-
-  // chrome.storage.sync.get(
-  //     {prefs: {use_notifications: false}},
-  //     function (storage) {
-  //       checkbox.checked = storage.prefs.use_notifications;
-  //       checkbox.addEventListener('click', save);
-  //     });
+  _radio = document.getElementsByTagName('input');
+  chrome.storage.sync.get(
+    'badge_type',
+    function (storage) {
+      var _value = "";
+      if(storage.badge_type === null || storage.badge_type === undefined){
+        _value = _radio[0].getAttribute("value");
+      } else {
+        _value = storage.badge_type;
+      }
+      for(var i = 0, l = _radio.length; i < l; i++){
+        if(_radio[i].getAttribute("value") === _value){
+          _radio[i].setAttribute("checked", "checked");
+        }
+        _radio[i].addEventListener('click', save);
+      }
+    });
 }
-
 main();

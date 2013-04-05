@@ -16,5 +16,6 @@
     "default_icon": "chromium.png",
     "default_popup": "popup.html"
   },
+  "options_page": "options.html",
   "manifest_version": 2
 }

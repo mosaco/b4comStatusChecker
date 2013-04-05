@@ -1,14 +1,109 @@
 <!doctype html>
 <html lang="ja">
 <head>
+  <meta charset="UTF-8">
   <title>bengo4.com Status Monitor Options</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      font-size: 0.8em;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      color: #444;
+      background:#f8f8f8;
+    }
+    h1{
+      border-bottom: solid 1px #ccc;
+      margin: 0;
+      padding: 10px 20px;
+    }
+    h1:before{
+      background: url(/img.png) left center no-repeat;
+      overflow: hidden;
+      width:123px;
+      height: 40px;
+      display: block;
+      content: "";
+    }
+    h2{
+      font-size: 1rem;
+      margin: 25px 20px 10px;
+    }
+    #footer{
+      margin: 35px 0 4px;
+      font:normal .4em 'Arial',sans-serif;
+      color:#999;
+      display:block;
+      border-top: solid 1px #ccc;
+      padding-left: 20px;
+    }
+    #logo_authense{
+      background: url(/img.png) left center no-repeat;
+      overflow: hidden;
+      width:43px;
+      height: 16px;
+      display: inline-block;
+      vertical-align:bottom;
+      background-position: -141px center;
+
+    }
+    .footer{
+      font-size: .4em;
+    }
+
+    ul{
+      list-style:none;
+      margin: 5px 15px;
+      padding: 0;
+      display:block;
+    }
+    li{
+      border: solid 1px #f1f1f1;
+      margin:0 4px 2px;
+      padding:0;
+      display: table;
+      width:110px;
+      background:#fff;
+      border-radius:3px;
+      font-size: .9em;
+
+      -webkit-transition: border 300ms ease-out;
+    }
+    li:hover{
+      text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+      border: 1px solid #ff8000;
+    }
+
+    input {
+      display: none;
+    }
+
+    input+label::before {
+      padding-right: 20px;
+      content: '';
+      background: no-repeat;
+      font: 16px monospace;
+    }
+
+    input[type='checkbox']+label::before ,
+    input[type='radio']+label::before  {
+      background: url(/img.png) -351px center no-repeat;
+    }
+    input[type='checkbox']:checked+label::before ,
+    input[type='radio']:checked+label::before {
+      background: url(/img.png) -331px center no-repeat;
+    }
+  </style>
 </head>
 <body>
-  <h1>Options for bengo4.com Status Monitor</h1>
-  <br>
-  何をバッジに出しますか？:<br />
-  <label><input id="notifications" name="notification" value="law" type="radio" />弁護士相談数</label><br />
-  <label><input id="notifications" name="notification" value="per" type="radio" checked="checked" />弁護士回答率</label>
+  <h1></h1>
+  <h2>バッジに何表示します？</h2>
+  <ul>
+    <li><input id="per" name="notification" value="per" type="radio" /><label for="per">弁護士回答率</label></li>
+    <li><input id="law" name="notification" value="law" type="radio" /><label for="law">弁護士登録数</label></li>
+  </ul>
   <script src='options.js'></script>
+  <span id="footer">powerd by <span id="logo_authense"></span></span>
 </body>
 </html>
