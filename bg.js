@@ -4,22 +4,27 @@
 
 var statusURL = "http://www.bengo4.com",
     badgeList = { law: 0, per: 3 }, // bengo4.comのTOPページのステータスの並べ順
-    badgeType,// = chrome.storage.sync.get('badge_type', function(){}),
-    pollFrequencyInMs = 30000;
+    badgeType,// = chrome.storage.sync.get('badgeType', function(){}),
+    pollFrequencyInMs = 300000;
 
 function updateStatus(status) {
   chrome.storage.sync.get(
-    'badge_type',
-    function(storage){
-      var _value = "";
-      if(storage.badge_type === null || storage.badge_type === undefined){
+    'prefs',
+    function (storage) {
+      if(storage.prefs.badgeType === null || storage.prefs.badgeType === undefined){
         badgeType = "law";
       } else {
-        badgeType = storage.badge_type;
+        badgeType = storage.prefs.badgeType;
       }
-  })
+      setsss(status);
+  });
+}
+
+function setsss(_v){
+  console.log(_v);
   var _badge = badgeList[badgeType],
-  var _num = status.querySelectorAll(".countNumber")[_badge].innerText;
+      _num = _v.querySelectorAll(".countNumber")[_badge].innerText;
+
   _num = _num.split(',').join("");
   chrome.browserAction.setBadgeBackgroundColor({color: '#fe6000'});
   chrome.browserAction.setBadgeText({text : _num});
@@ -56,5 +61,8 @@ function requestURL(url, callback, opt_responseType) {
 function main() {
   requestStatus();
 }
+
+//設定ファイル変更時イベント
+chrome.storage.onChanged.addListener(requestStatus);
 
 main();
