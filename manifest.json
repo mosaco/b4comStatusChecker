@@ -1,6 +1,6 @@
 {
   "name": "bengo4.com Status Monitor",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Displays the status of the bengo4.com in the toolbar.  Click to see more detailed status in a popup.",
   "icons": { "128": "icon.png" },
   "background": {
