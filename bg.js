@@ -3,25 +3,24 @@
 // found in the LICENSE file.
 
 var statusURL = "http://www.bengo4.com",
-    badgeList = { law: 0, per: 3 }, // bengo4.comのTOPページのステータスの並べ順
+    badgeList = { law: 0, per: 3 },
     badgeType,// = chrome.storage.sync.get('badgeType', function(){}),
     pollFrequencyInMs = 300000;
 
-function updateStatus(status) {
+function updateStatus(status){
   chrome.storage.sync.get(
     'prefs',
     function (storage) {
-      if(storage.prefs.badgeType === null || storage.prefs.badgeType === undefined){
-        badgeType = "law";
-      } else {
+      try{
         badgeType = storage.prefs.badgeType;
+      } catch(e){
+        badgeType = "law";
       }
-      setsss(status);
+      update(status);
   });
 }
 
-function setsss(_v){
-  console.log(_v);
+function update(_v){
   var _badge = badgeList[badgeType],
       _num = _v.querySelectorAll(".countNumber")[_badge].innerText;
 
@@ -62,7 +61,8 @@ function main() {
   requestStatus();
 }
 
-//設定ファイル変更時イベント
 chrome.storage.onChanged.addListener(requestStatus);
+// debug 用
+// chrome.storage.sync.clear(function(){console.log('clear !')});
 
 main();

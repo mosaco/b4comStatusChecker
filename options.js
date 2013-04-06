@@ -11,18 +11,23 @@ function badgeTimeSave() {
 }
 
 function main() {
-  // バッジに表示するタイプを取得
   _radio = document.getElementsByTagName('input');
+
   chrome.storage.sync.get(
     'prefs',
     function (storage) {
       console.log(storage);
       var _value = "";
-      if(storage.prefs.badgeType === null || storage.prefs.badgeType === undefined){
-        _value = _radio[0].getAttribute("value");
-      } else {
-        _value = storage.prefs.badgeType;
+      try{
+        if(storage.prefs.badgeType === null || storage.prefs.badgeType === undefined){
+          _value = _radio[0].getAttribute("value");
+        } else {
+          _value = storage.prefs.badgeType;
+        }
+      } catch(e){
+        _value = 'law';
       }
+
       for(var i = 0, l = _radio.length; i < l; i++){
         if(_radio[i].getAttribute("value") === _value){
           _radio[i].setAttribute("checked", "checked");
@@ -30,6 +35,6 @@ function main() {
         _radio[i].addEventListener('click', badgeTypeSave);
       }
     });
-  // バッジの更新時間の設定を取得
 }
+
 main();
