@@ -74,36 +74,66 @@
       text-shadow: 0 1px rgba(0, 0, 0, 0.1);
       border: 1px solid #ff8000;
     }
-
-    input {
+    .timer li:hover{
+      border: 1px solid #f1f1f1;
+    }
+    input[type='radio'] {
       display: none;
     }
-
-    input+label::before {
+    input[type='radio']+label::before {
       padding-right: 20px;
       content: '';
       background: no-repeat;
       font: 16px monospace;
     }
-
-    input[type='checkbox']+label::before ,
     input[type='radio']+label::before  {
       background: url(/img/img.png) -351px center no-repeat;
     }
-    input[type='checkbox']:checked+label::before ,
     input[type='radio']:checked+label::before {
       background: url(/img/img.png) -331px center no-repeat;
     }
+    input#sec{
+      width: 30px;
+      text-align: center;
+      margin: 3px 5px;
+      border: solid 1px #ccc;
+      -webkit-transition: border 400ms ease-out;
+    }
+    input#sec:focus{
+      outline: 0;
+      border: solid 1px #ff8000;
+    }
+    input[type="button"]{
+      float:right;
+      border-radius: 0;
+      border: solid 1px #ff8000;
+      background: #ff8000;
+      color: #fff;
+      text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+      -webkit-transition: border 200ms ease-out;
+    }
+    input[type="button"]:hover{
+      border: 1px solid #d36308;
+      border-bottom: 1px solid #984501;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+      background: #ff8000;
+      color: #fff;
+    }
   </style>
+  <script src='zepto.min.js'></script>
 </head>
 <body>
   <h1></h1>
   <h2>バッジに何表示します？</h2>
-  <ul>
-    <li><input id="per" name="notification" value="per" type="radio" /><label for="per">弁護士回答率</label></li>
-    <li><input id="law" name="notification" value="law" type="radio" /><label for="law">弁護士登録数</label></li>
+  <ul class="badgeType">
+    <li><input id="resPercent" name="notification" value="resPercent" type="radio" /><label for="resPercent">弁護士回答率</label></li>
+    <li><input id="lawyerNum" name="notification" value="lawyerNum" type="radio" /><label for="lawyerNum">弁護士登録数</label></li>
   </ul>
-  <script src='options.js'></script>
+  <h2>更新頻度を設定してください <small>( 1~999 分迄ね )</small></h2>
+  <ul class="timer">
+    <li><input id="sec" value="" type="text" maxlength="3" size="3" pattern="^\d{1,3}$" /><label for="sec">分</label><input type="button" value="set"></li>
+  </ul>
   <span id="footer">powerd by <span id="logo_authense"></span></span>
+  <script src='options.js'></script>
 </body>
 </html>

@@ -2,39 +2,33 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-var _radio;
+var bg = chrome.extension.getBackgroundPage()
+  , lc = localStorage;
+
 function badgeTypeSave() {
-  chrome.storage.sync.set({prefs: {badgeType: this.getAttribute("value")} });
+  lc.setItem('badgeType', this.getAttribute("value"));
 }
 function badgeTimeSave() {
-  // chrome.storage.sync.set({pref:{badgeTime: this.getAttribute("value")}});
+  var tmp = $('#sec').val();
+  if(tmp.match(/^\d{1,3}$/)){
+    lc.setItem('timerMs', changeMinToMiliSec(tmp));
+  }else{
+    $('#sec').val(changeMiliSecToMin(lc.getItem('timerMs')));
+  }
 }
-
+function changeMinToMiliSec(val){
+  return val * 60000;
+}
+function changeMiliSecToMin(val){
+  return Math.floor(val / 60000);
+}
 function main() {
-  _radio = document.getElementsByTagName('input');
+  $('#'+lc.getItem('badgeType')).attr('checked','checked');
+  $('#sec').val(changeMiliSecToMin(lc.getItem('timerMs')));
 
-  chrome.storage.sync.get(
-    'prefs',
-    function (storage) {
-      console.log(storage);
-      var _value = "";
-      try{
-        if(storage.prefs.badgeType === null || storage.prefs.badgeType === undefined){
-          _value = _radio[0].getAttribute("value");
-        } else {
-          _value = storage.prefs.badgeType;
-        }
-      } catch(e){
-        _value = 'law';
-      }
-
-      for(var i = 0, l = _radio.length; i < l; i++){
-        if(_radio[i].getAttribute("value") === _value){
-          _radio[i].setAttribute("checked", "checked");
-        }
-        _radio[i].addEventListener('click', badgeTypeSave);
-      }
-    });
+  $('.badgeType').on('click', 'li input', badgeTypeSave);
+  $('.timer').on('click', 'li input[type="button"]', badgeTimeSave);
 }
-
-main();
+$(function($){
+  main();
+})
