@@ -1,6 +1,6 @@
 # b4comStatusChecker  (chrome extension)
 
-Displays the status of the bengo4.com in the toolbar.   
+Displays the status of the bengo4.com in the toolbar.
 Click to see more detailed status in a popup.
 
 ## 使い方
@@ -12,4 +12,4 @@ Click to see more detailed status in a popup.
 4. ウマー
 
 ## ToDo
-- ファイルにまたがる共通処理を纏める。
+- （´-`）.｡oO（ とりあえず無し...
