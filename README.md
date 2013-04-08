@@ -13,4 +13,3 @@ Click to see more detailed status in a popup.
 
 ## ToDo
 - ファイルにまたがる共通処理を纏める。
-- ファイルにまたがってイベント繋げる。（´-`）.｡oO（出来るよね..）

@@ -4,25 +4,23 @@
 var bg = chrome.extension.getBackgroundPage()
   , lc = localStorage;
 
-function setStatus(_v){
+function setStatus(){
   // console.log('==================');
   // console.log(_v);
-  var _title = _v.querySelectorAll("#countBlock h2"), // タイトル
-      _num   = _v.querySelectorAll(".countNumber"),   // 数字
-      _unit  = _v.querySelectorAll(".countValue");    // 単位
-
+  var jd = JSON.parse(lc.getItem('data'))
   var _table = document.getElementById("bengo4"),
       _line = "<ul id='list'>";
 
-  for(var i=0, l=_num.length; i<l; i++){
-    _line += "<li><span id='list_"+i+"''>"+ _title[i].innerText +
-             "</span><strong>"+ _num[i].innerText +
-             "</strong><em>"+_unit[i].innerText+"</em></li>";
+  for(var i=0, l=jd.length; i<l; i++){
+    _line += "<li><span id='list_"+i+"''>"+ jd[i]['title'] +
+             "</span><strong>"+ jd[i]['value'] +
+             "</strong><em>"+ jd[i]['unit'] +"</em></li>";
   }
   _table.innerHTML = _line+"</ul>";
+
 }
 function main() {
-  bg.requestURL(bg.statusURL, setStatus, "document");
+  setStatus();
 }
 $(function($){
   main();
