@@ -2,11 +2,16 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-var bg = chrome.extension.getBackgroundPage()
-  , lc = localStorage;
+var lc = localStorage;
 
+function changeMinToMiliSec (_val){
+  return _val * 60000;
+}
+function changeMiliSecToMin (_val){
+  return Math.floor( _val / 60000 );
+}
 function badgeTypeSave() {
-  lc.setItem('badgeType', this.getAttribute("value"));
+  lc.setItem('badgeType', this.getAttribute('value'));
 }
 function badgeTimeSave() {
   var tmp = $('#sec').val();
@@ -16,13 +21,7 @@ function badgeTimeSave() {
     $('#sec').val(changeMiliSecToMin(lc.getItem('timerMs')));
   }
 }
-function changeMinToMiliSec(val){
-  return val * 60000;
-}
-function changeMiliSecToMin(val){
-  return Math.floor(val / 60000);
-}
-function main() {
+function main($) {
   $('#'+lc.getItem('badgeType')).attr('checked','checked');
   $('#sec').val(changeMiliSecToMin(lc.getItem('timerMs')));
 
@@ -30,5 +29,5 @@ function main() {
   $('.timer').on('click', 'li input[type="button"]', badgeTimeSave);
 }
 $(function($){
-  main();
-})
+  main($);
+});
