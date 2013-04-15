@@ -26,10 +26,12 @@ function updateBadge(){
 function updateStatus(_v){
   // console.log('updateStatus============');
   // console.log(_v);
+  var _date  = new Date()
+    , jsonData = JSON.parse(lc.getItem('data'))
+    , changeData = JSON.parse(lc.getItem('data'));
+
   if(_v !== 'offline'){
-    var jsonData = JSON.parse(lc.getItem('data'))
-      , changeData = JSON.parse(lc.getItem('data'))
-      , _title = _v.querySelectorAll('#countBlock h2')   // タイトル
+    var _title = _v.querySelectorAll('#countBlock h2')   // タイトル
       , _num   = _v.querySelectorAll('.countNumber')     // 数字
       , _unit  = _v.querySelectorAll('.countValue');     // 単位
 
@@ -37,7 +39,11 @@ function updateStatus(_v){
       changeData[i]['title'] = _title[i].innerText;
       changeData[i]['value'] = _num[i].innerText;
       changeData[i]['unit'] = _unit[i].innerText;
+      changeData[i]['time'] = _date.getTime();
     }
+    lc.setItem('data', JSON.stringify(changeData));
+  } else {
+    changeData[0]['time'] = _date.getTime();
     lc.setItem('data', JSON.stringify(changeData));
   }
   updateBadge();
@@ -48,6 +54,7 @@ function requestURL(url, callback, opt_responseType) {
   xhr.responseType = opt_responseType || 'document';
 
   xhr.onreadystatechange = function() {
+    // console.log(xhr.readyState);
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
         callback(xhr.responseType === 'document' ? xhr.responseXML : xhr.responseText);
@@ -58,7 +65,7 @@ function requestURL(url, callback, opt_responseType) {
   };
 
   xhr.onerror = function() {
-    callback('offline');
+    // callback('offline');
   };
 
   xhr.open('GET', url, true);
@@ -66,6 +73,7 @@ function requestURL(url, callback, opt_responseType) {
 }
 
 function requestStatus() {
+  // console.log('requestStatus');
   requestURL(statusURL, updateStatus, 'document');
   if(timerID){
     clearTimeout(timerID);

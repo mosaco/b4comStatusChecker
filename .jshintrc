@@ -13,6 +13,8 @@
   "unused": true,
   "laxcomma": true,
   "trailing": true,
+  "asi": false,
+  "sub": true,
   "debug": true,
   "browser": true,
   "devel": true,

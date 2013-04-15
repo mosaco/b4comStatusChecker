@@ -9,31 +9,42 @@
     div{
       display:table-cell;
       width:50%;
-      padding: 5px;
+      padding: 0 5px;
     }
     div:nth-child(1){ width: 40%; }
     div:nth-child(2){ width: 60%; }
     a{
-      padding: 2px 0;
-      text-align: center;
-      width: 80%;
+      padding: 0;
+      width: 20px;
+      height: 14px;
+      text-align: left;
       text-decoration: none;
       display:block;
       border-radius: 2px;
       border: solid 1px #ff8000;
       background: #ff8000;
       color: #fff;
-      text-shadow: 0 1px rgba(0, 0, 0, 0.1);
-      -webkit-transition: border 200ms ease-out;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      -webkit-transition: all 200ms ease-out;
+
+      &::after{
+        content: " option";
+        margin-top: -2px;
+      }
       &:hover{
         border: 1px solid #d36308;
         border-bottom: 1px solid #984501;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        text-shadow:0 -1px 1px rgba(161, 73, 0, 0.4);;
         background: #ff8000;
         color: #fff;
+        width: 60px;
       }
-      &:focus{
-        outline: 0;
+      &:focus{ outline: 0; }
+      i[class^="icon-"]:before,
+      i[class*=" icon-"]:before {
+        font-size: 11px!important;
+        margin: .2em .4em!important;
       }
     }
   }

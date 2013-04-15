@@ -12,6 +12,7 @@ ul{
   margin: 5px 2px;
   padding: 0;
   display:block;
+  clear:both;
 }
 li{
   border: solid 1px #f1f1f1;
@@ -21,6 +22,9 @@ li{
   width:200px;
   background:#fff;
   border-radius:3px;
+  &:nth-child(1){
+    margin-top: 5px;
+  }
 
   span{
     width: 100px;
@@ -80,4 +84,6 @@ li{
 @import "_head";
 @import "_foot";
 @import "_form";
+@import "_fontello";
+@import "_animation";
 

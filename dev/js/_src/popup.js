@@ -17,6 +17,16 @@ function setStatus(){
   }
   _table.innerHTML = _line+'</ul>';
 }
+function loading(){
+  var bg = chrome.extension.getBackgroundPage()
+    , _table = document.getElementById('bengo4')
+    , _loading = '<div style="width: 212px; padding: 58px 0 59px;text-align:center;"><img src="/img/gif.gif" /></div>';
+
+  _table.innerHTML = _loading;
+  bg.requestStatus();
+}
 $(function($){
   setStatus($);
+  $(window).on('storage', setStatus);
+  $('#reload').on('click', loading);
 });
